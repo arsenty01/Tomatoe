@@ -1,9 +1,17 @@
 from main_window import Ui_MainWindow
+from timeout_window import Ui_timeout_window
 from PyQt5 import QtWidgets, QtCore
 import sys
 import json
 import time
 import _thread
+
+
+class ModalWindow(QtWidgets.QWidget):
+    def __init__(self):
+        super(ModalWindow, self).__init__()
+        self.ui = Ui_timeout_window()
+        self.ui.setupUi(self)
 
 
 class Application(QtWidgets.QMainWindow):
@@ -13,6 +21,7 @@ class Application(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.profiles = {}
         self.session_flag = False
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
 
         self.get_profiles()
         self.ui.btnSaveProfile.clicked.connect(self.save_settings)
@@ -21,14 +30,14 @@ class Application(QtWidgets.QMainWindow):
 
     def action(self):
         self.ui.btnStart.setEnabled(False)
-        self.ui.cbProfileMain.setEnabled(False)
+        #self.ui.cbCurrentProfile.setEnabled(False)
         self.ui.btnStop.setEnabled(True)
         _thread.start_new_thread(self.start_session, ())
 
     def stop_session(self):
         self.session_flag = False
         self.ui.btnStart.setEnabled(True)
-        self.ui.cbProfileMain.setEnabled(True)
+        #self.ui.cbCurrentProfile.setEnabled(True)
         self.ui.btnStop.setEnabled(False)
 
     def get_profiles(self):
@@ -47,16 +56,16 @@ class Application(QtWidgets.QMainWindow):
             with open('profiles.json') as f:
                 self.profiles = json.load(f)
 
-        self.ui.cbProfileSettings.clear()
-        self.ui.cbProfileMain.clear()
+        self.ui.cbSavedProfiles.clear()
+        #self.ui.cbCurrentProfile.clear()
         for key in self.profiles:
-            self.ui.cbProfileMain.addItem(key)
-            self.ui.cbProfileSettings.addItem(key)
+            self.ui.cbSavedProfiles.addItem(key)
+            #self.ui.cbCurrentProfile.addItem(key)
 
     def save_settings(self):
-        duration = self.ui.session_duration.time().toString()
-        timeout = self.ui.leTimeout.text()
-        name = self.ui.leProfileName.text() or self.ui.cbProfileSettings.currentText()
+        duration = self.ui.teSessionDuration.time().toString()
+        timeout = self.ui.teTimeout.text()
+        name = self.ui.leProfileName.text()
 
         print(duration)
         print(timeout)
@@ -69,11 +78,11 @@ class Application(QtWidgets.QMainWindow):
             json.dump(self.profiles, f)
 
         self.get_profiles()
-        self.ui.cbProfileSettings.setCurrentText(name)
+        self.ui.cbSavedProfiles.setCurrentText(name)
 
     def start_session(self):
         self.session_flag = True
-        current_profile = self.ui.cbProfileMain.currentText()
+        current_profile = self.ui.cbSavedProfiles.currentText()
         start = QtCore.QTime(0, 0, 0)
         duration_time = QtCore.QTime.fromString(self.profiles[current_profile]['duration'])
         timeout_minutes = self.profiles[current_profile]['timeout']
@@ -100,6 +109,7 @@ class Application(QtWidgets.QMainWindow):
 def main():
     app = QtWidgets.QApplication(sys.argv)
     application = Application()
+
     application.show()
     sys.exit(app.exec_())
 

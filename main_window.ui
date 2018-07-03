@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>300</height>
+    <width>190</width>
+    <height>115</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>300</width>
-    <height>300</height>
+    <width>190</width>
+    <height>115</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>300</width>
-    <height>300</height>
+    <width>190</width>
+    <height>115</height>
    </size>
   </property>
   <property name="font">
@@ -38,55 +38,59 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabsMain">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>301</width>
-      <height>301</height>
+      <width>190</width>
+      <height>130</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>190</width>
+      <height>130</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>190</width>
+      <height>130</height>
+     </size>
+    </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
+    <property name="usesScrollButtons">
+     <bool>false</bool>
+    </property>
     <widget class="QWidget" name="main">
      <attribute name="title">
-      <string>Основное</string>
+      <string>Main</string>
      </attribute>
      <widget class="QPushButton" name="btnStart">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>30</y>
-        <width>201</width>
-        <height>81</height>
+        <x>10</x>
+        <y>75</y>
+        <width>71</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>СТАРТ</string>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="cbProfileMain">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>220</y>
-        <width>201</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbProfile">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>200</y>
-        <width>201</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Профиль</string>
+       <string>Start</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btnStop">
@@ -95,173 +99,145 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>130</y>
-        <width>201</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>СТОП</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="settings">
-     <attribute name="title">
-      <string>Настройки</string>
-     </attribute>
-     <widget class="QLabel" name="lbSessionDuration">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>151</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Продолжительность сессии</string>
-      </property>
-     </widget>
-     <widget class="QTimeEdit" name="session_duration">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>271</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="displayFormat">
-       <string>H:mm:ss</string>
-      </property>
-      <property name="calendarPopup">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbTimeout">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>271</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Перерыв через (мин)</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="leTimeout">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>150</y>
-        <width>271</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="inputMask">
-       <string>9</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="maxLength">
-       <number>1</number>
-      </property>
-      <property name="clearButtonEnabled">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnSaveProfile">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>230</y>
-        <width>131</width>
+        <x>90</x>
+        <y>75</y>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>Сохранить профиль</string>
+       <string>Stop</string>
       </property>
      </widget>
-     <widget class="QLabel" name="lbProfilename">
+     <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
-        <width>271</width>
-        <height>20</height>
+        <y>0</y>
+        <width>151</width>
+        <height>71</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Имя профиля</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="leProfileName">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>200</y>
-        <width>271</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="cbProfileSettings">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>271</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbPrfile">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>271</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Профиль</string>
-      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="1">
+        <widget class="QLabel" name="lbTimerTimeout">
+         <property name="styleSheet">
+          <string notr="true">
+font: bold 20px;</string>
+         </property>
+         <property name="text">
+          <string>09:00:00</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="lbTimerSession">
+         <property name="styleSheet">
+          <string notr="true">
+font: bold 20px;</string>
+         </property>
+         <property name="text">
+          <string>09:00:00</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="styleSheet">
+          <string notr="true">
+font: 13px bold;</string>
+         </property>
+         <property name="text">
+          <string>Timeout</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="styleSheet">
+          <string notr="true">
+font: 13px bold;</string>
+         </property>
+         <property name="text">
+          <string>Session</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="statistic">
+    <widget class="QWidget" name="settings">
      <attribute name="title">
-      <string>Статистика</string>
+      <string>Settings</string>
      </attribute>
-     <widget class="QLabel" name="lbStatistics">
+     <widget class="QPushButton" name="btnSaveProfile">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>130</y>
-        <width>261</width>
-        <height>20</height>
+        <x>128</x>
+        <y>80</y>
+        <width>34</width>
+        <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Грядет в версии 2.0</string>
+       <string>Ok</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+     </widget>
+     <widget class="QWidget" name="formLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>161</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbProfileName">
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="leProfileName"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="lbSessionDuration">
+         <property name="text">
+          <string>Session</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QTimeEdit" name="teSessionDuration"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbTimeout">
+         <property name="text">
+          <string>Timeout</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QTimeEdit" name="teTimeout"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QComboBox" name="cbSavedProfiles">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>81</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
       </property>
      </widget>
     </widget>
    </widget>
   </widget>
-  <action name="action">
-   <property name="text">
-    <string>Настройки</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections/>
