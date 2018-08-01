@@ -117,8 +117,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Tomatoe"))
         self.btnStart.setText(_translate("MainWindow", "Start"))
         self.btnStop.setText(_translate("MainWindow", "Stop"))
-        self.lbTimerTimeout.setText(_translate("MainWindow", "09:00:00"))
-        self.lbTimerSession.setText(_translate("MainWindow", "09:00:00"))
+        #self.lbTimerTimeout.setText(_translate("MainWindow", "09:00:00"))
+        #self.lbTimerSession.setText(_translate("MainWindow", "09:00:00"))
         self.label_2.setText(_translate("MainWindow", "Timeout"))
         self.label.setText(_translate("MainWindow", "Session"))
         self.tabsMain.setTabText(self.tabsMain.indexOf(self.main), _translate("MainWindow", "Main"))
@@ -129,12 +129,4 @@ class Ui_MainWindow(object):
         self.tabsMain.setTabText(self.tabsMain.indexOf(self.settings), _translate("MainWindow", "Settings"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 

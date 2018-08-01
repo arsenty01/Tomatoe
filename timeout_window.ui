@@ -34,44 +34,11 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QPushButton" name="makeButton">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>10</y>
-     <width>221</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">text-align: center;
-font: 20px bold;</string>
-   </property>
-   <property name="text">
-    <string>Пора сделать перерыв!</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>152</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 15px</string>
-   </property>
-   <property name="text">
-    <string>Отложить</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>152</y>
+     <x>90</x>
+     <y>150</y>
      <width>121</width>
      <height>31</height>
     </rect>
@@ -81,6 +48,39 @@ font: 20px bold;</string>
    </property>
    <property name="text">
     <string>Сделать</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbTimeout">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>0</y>
+     <width>81</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 20px;</string>
+   </property>
+   <property name="text">
+    <string>Перерыв</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="ldTimeoutTimer">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>50</y>
+     <width>161</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 40px;
+</string>
+   </property>
+   <property name="text">
+    <string>00:00:00</string>
    </property>
   </widget>
  </widget>

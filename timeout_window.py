@@ -19,38 +19,28 @@ class Ui_timeout_window(object):
         timeout_window.setSizePolicy(sizePolicy)
         timeout_window.setMinimumSize(QtCore.QSize(300, 200))
         timeout_window.setMaximumSize(QtCore.QSize(300, 200))
-        timeout_window.setModal(True)
-        self.label = QtWidgets.QLabel(timeout_window)
-        self.label.setGeometry(QtCore.QRect(40, 10, 221, 141))
-        self.label.setStyleSheet("text-align: center;\n"
-"font: 20px bold;")
-        self.label.setObjectName("label")
-        self.pushButton = QtWidgets.QPushButton(timeout_window)
-        self.pushButton.setGeometry(QtCore.QRect(160, 152, 121, 31))
-        self.pushButton.setStyleSheet("font: 15px")
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(timeout_window)
-        self.pushButton_2.setGeometry(QtCore.QRect(20, 152, 121, 31))
-        self.pushButton_2.setStyleSheet("font: 15px")
-        self.pushButton_2.setObjectName("pushButton_2")
+        #timeout_window.setModal(True)
+        self.makeButton = QtWidgets.QPushButton(timeout_window)
+        self.makeButton.setGeometry(QtCore.QRect(90, 150, 121, 31))
+        self.makeButton.setStyleSheet("font: 15px")
+        self.makeButton.setObjectName("makeButton")
+        self.lbTimeout = QtWidgets.QLabel(timeout_window)
+        self.lbTimeout.setGeometry(QtCore.QRect(110, 0, 81, 71))
+        self.lbTimeout.setStyleSheet("font-size: 20px;")
+        self.lbTimeout.setObjectName("lbTimeout")
+        self.ldTimeoutTimer = QtWidgets.QLabel(timeout_window)
+        self.ldTimeoutTimer.setGeometry(QtCore.QRect(70, 50, 161, 91))
+        self.ldTimeoutTimer.setStyleSheet("font-size: 40px;\n"
+"")
+        self.ldTimeoutTimer.setObjectName("ldTimeoutTimer")
 
         self.retranslateUi(timeout_window)
-        QtCore.QMetaObject.connectSlotsByName(timeout_window)
+        #QtCore.QMetaObject.connectSlotsByName(timeout_window)
 
     def retranslateUi(self, timeout_window):
         _translate = QtCore.QCoreApplication.translate
         timeout_window.setWindowTitle(_translate("timeout_window", "Dialog"))
-        self.label.setText(_translate("timeout_window", "Пора сделать перерыв!"))
-        self.pushButton.setText(_translate("timeout_window", "Отложить"))
-        self.pushButton_2.setText(_translate("timeout_window", "Сделать"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    timeout_window = QtWidgets.QDialog()
-    ui = Ui_timeout_window()
-    ui.setupUi(timeout_window)
-    timeout_window.show()
-    sys.exit(app.exec_())
+        self.makeButton.setText(_translate("timeout_window", "Сделать"))
+        self.lbTimeout.setText(_translate("timeout_window", "Перерыв"))
+        self.ldTimeoutTimer.setText(_translate("timeout_window", "00:00:00"))
 

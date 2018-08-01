@@ -5,13 +5,22 @@ import sys
 import json
 import time
 import _thread
+import threading
 
 
-class ModalWindow(QtWidgets.QWidget):
+class ModalWindow(QtWidgets.QDialog):
     def __init__(self):
-        super(ModalWindow, self).__init__()
+        QtWidgets.QDialog.__init__(self)
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.ui = Ui_timeout_window()
         self.ui.setupUi(self)
+        self.show()
+        self.exec()
+
+    @QtCore.pyqtSlot()
+    def on_makeButton_clicked(self):
+        pass
+
 
 
 class Application(QtWidgets.QMainWindow):
@@ -22,22 +31,25 @@ class Application(QtWidgets.QMainWindow):
         self.profiles = {}
         self.session_flag = False
         self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
-
         self.get_profiles()
+        self.ui.leProfileName.setText("Default")
+        self.ui.teSessionDuration.setTime(QtCore.QTime.fromString(self.profiles['Default']['duration'], 'hh:mm:ss'))
+        self.ui.teTimeout.setTime(QtCore.QTime.fromString(self.profiles['Default']['timeout'], 'h:mm'))
+        self.ui.lbTimerSession.setText(self.profiles['Default']['duration'])
+        self.ui.lbTimerTimeout.setText(self.profiles['Default']['timeout'])
         self.ui.btnSaveProfile.clicked.connect(self.save_settings)
         self.ui.btnStart.clicked.connect(self.action)
         self.ui.btnStop.clicked.connect(self.stop_session)
 
     def action(self):
         self.ui.btnStart.setEnabled(False)
-        #self.ui.cbCurrentProfile.setEnabled(False)
         self.ui.btnStop.setEnabled(True)
         _thread.start_new_thread(self.start_session, ())
+        #threading.Thread(target=self.start_session)
 
     def stop_session(self):
         self.session_flag = False
         self.ui.btnStart.setEnabled(True)
-        #self.ui.cbCurrentProfile.setEnabled(True)
         self.ui.btnStop.setEnabled(False)
 
     def get_profiles(self):
@@ -48,62 +60,54 @@ class Application(QtWidgets.QMainWindow):
             new_profiles = {
                 "Default": {
                     'duration': '09:00:00',
-                    'timeout': '45'
+                    'timeout': '0:45'
                 }
             }
             with open('profiles.json', 'w') as f:
                 json.dump(new_profiles, f)
             with open('profiles.json') as f:
                 self.profiles = json.load(f)
-
         self.ui.cbSavedProfiles.clear()
-        #self.ui.cbCurrentProfile.clear()
         for key in self.profiles:
             self.ui.cbSavedProfiles.addItem(key)
-            #self.ui.cbCurrentProfile.addItem(key)
 
     def save_settings(self):
         duration = self.ui.teSessionDuration.time().toString()
         timeout = self.ui.teTimeout.text()
         name = self.ui.leProfileName.text()
-
-        print(duration)
-        print(timeout)
-        print(name)
         self.profiles[name] = {
             'duration': duration,
             'timeout': timeout
         }
         with open('profiles.json', 'w') as f:
             json.dump(self.profiles, f)
-
         self.get_profiles()
         self.ui.cbSavedProfiles.setCurrentText(name)
+        self.ui.lbTimerTimeout.setText(timeout)
 
     def start_session(self):
         self.session_flag = True
         current_profile = self.ui.cbSavedProfiles.currentText()
-        start = QtCore.QTime(0, 0, 0)
         duration_time = QtCore.QTime.fromString(self.profiles[current_profile]['duration'])
-        timeout_minutes = self.profiles[current_profile]['timeout']
-        timeout_seconds = int(timeout_minutes)*60
-        start_date = QtCore.QDateTime.currentSecsSinceEpoch()
-        duration_secs = start.secsTo(duration_time)
-        finish_time = start_date + duration_secs
-        finish_date = QtCore.QDateTime.fromSecsSinceEpoch(finish_time)
-        current_date = QtCore.QDateTime.currentDateTime()
-        timeout_counter = 0
-        while finish_date > current_date:
+        timeout_minutes = self.profiles[current_profile]['timeout'].split(':')[1]
+        timeout_seconds = int(timeout_minutes) * 60
+        zero_point = QtCore.QTime.fromString('00:00:00', 'hh:mm:ss')
+        timeout = 0
+        while zero_point != duration_time:
             if self.session_flag is False:
+                self.ui.lbTimerSession.setText(self.profiles[current_profile]['duration'])
                 break
+            timeout += 1
+            print(timeout)
+            zero_point = zero_point.addSecs(1)
+            if timeout == timeout_seconds:
+                #threading.Thread(target=self.childwindow).start()
+                 _thread.start_new_thread(self.childwindow, ())
             time.sleep(1)
-            timeout_counter += 1
-            current_date = current_date.addSecs(1)
-            if timeout_counter == timeout_seconds:
-                timeout_counter = 0
-                print('notify!')
-            else:
-                print('everything ok yet', timeout_counter, timeout_seconds)
+            self.ui.lbTimerSession.setText(zero_point.toString())
+
+    def childwindow(self):
+        self.window = ModalWindow()
 
 
 def main():
