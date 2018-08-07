@@ -2,7 +2,7 @@
 .dist
 .build
 .DS_Store
-.venv
+venv/*
 *.pyc
 *.spec
 *.json
@@ -11,4 +11,3 @@
 *.pkg
 *.exe
 *.txt
-
