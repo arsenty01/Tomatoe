@@ -16,6 +16,7 @@ class ModalWindow(QtWidgets.QDialog):
         self.ui = Ui_timeout_window()
         self.ui.setupUi(self)
         self.profiles = Application.get_profiles()
+        self.setWindowIcon(QtGui.QIcon('tom.png'))
         self.timeoutDuration = Application.qtime_to_seconds(QtCore.QTime.fromString(self.profiles['Default']['timeout']))
         _thread.start_new_thread(self.hello, ())
         self.show()
@@ -121,6 +122,7 @@ class Application(QtWidgets.QMainWindow):
         self.session_flag = True
         current_profile = 'Default'
         zero_point = QtCore.QTime.fromString('00:00:00', 'hh:mm:ss')
+        end_point = QtCore.QTime.fromString('23:59:59', 'hh:mm:ss')
         duration_time = QtCore.QTime.fromString(self.profiles[current_profile]['duration'])
         session_counter = zero_point
         workTime_counter = zero_point
@@ -129,7 +131,7 @@ class Application(QtWidgets.QMainWindow):
         workTime_seconds = self.qtime_to_seconds(workTime)
 
         timeout_i = 0
-        while session_counter != duration_time:
+        while session_counter < duration_time:
             if self.session_flag is False:
                 self.ui.lbTimerSession.setText(self.profiles[current_profile]['duration'])
                 self.ui.lbTimerTimeout.setText(self.profiles[current_profile]['workTime'])
@@ -145,8 +147,21 @@ class Application(QtWidgets.QMainWindow):
             time.sleep(1)
             self.ui.lbTimerSession.setText(session_counter.toString())
             self.ui.lbTimerTimeout.setText(workTime_counter.toString())
-        self.ui.lbTimerSession.setText(self.profiles[current_profile]['duration'])
+
+        timeout_e = 0
         self.ui.lbTimerTimeout.setText(self.profiles[current_profile]['workTime'])
+        self.ui.lbTimerSession.setStyleSheet('font: bold 20px;color: red;')
+        while session_counter != end_point:
+            if self.session_flag is False:
+                self.ui.lbTimerSession.setText(self.profiles[current_profile]['duration'])
+                self.ui.lbTimerTimeout.setText(self.profiles[current_profile]['workTime'])
+                break
+            timeout_e += 1
+            session_counter = session_counter.addSecs(1)
+            time.sleep(1)
+            self.ui.lbTimerSession.setText(session_counter.toString())
+        self.ui.lbTimerSession.setText(self.profiles[current_profile]['duration'])
+        self.ui.lbTimerSession.setStyleSheet('font: bold 20px;color: black;')
         self.ui.btnStart.setEnabled(True)
         self.ui.btnStop.setEnabled(False)
 
