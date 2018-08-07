@@ -71,7 +71,7 @@
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -173,26 +173,13 @@ font: 13px bold;</string>
      <attribute name="title">
       <string>Settings</string>
      </attribute>
-     <widget class="QPushButton" name="btnSaveProfile">
-      <property name="geometry">
-       <rect>
-        <x>102</x>
-        <y>80</y>
-        <width>60</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Apply</string>
-      </property>
-     </widget>
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
         <width>161</width>
-        <height>93</height>
+        <height>111</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -205,6 +192,9 @@ font: 13px bold;</string>
        </item>
        <item row="0" column="1">
         <widget class="QTimeEdit" name="sessionTimeEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="displayFormat">
           <string>hh:mm:ss</string>
          </property>
@@ -219,8 +209,11 @@ font: 13px bold;</string>
        </item>
        <item row="1" column="1">
         <widget class="QTimeEdit" name="worktimeTimeEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="currentSection">
-          <enum>QDateTimeEdit::MinuteSection</enum>
+          <enum>QDateTimeEdit::HourSection</enum>
          </property>
          <property name="displayFormat">
           <string>hh:mm:ss</string>
@@ -236,8 +229,34 @@ font: 13px bold;</string>
        </item>
        <item row="2" column="1">
         <widget class="QTimeEdit" name="timeoutTimeEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="displayFormat">
           <string>hh:mm:ss</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="editButton">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="applyButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Apply</string>
          </property>
         </widget>
        </item>

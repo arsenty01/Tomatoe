@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'main_window.ui'
-#
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
@@ -76,11 +68,8 @@ class Ui_MainWindow(object):
         self.settings = QtWidgets.QWidget()
         self.settings.setEnabled(True)
         self.settings.setObjectName("settings")
-        self.btnSaveProfile = QtWidgets.QPushButton(self.settings)
-        self.btnSaveProfile.setGeometry(QtCore.QRect(102, 80, 60, 27))
-        self.btnSaveProfile.setObjectName("btnSaveProfile")
         self.formLayoutWidget = QtWidgets.QWidget(self.settings)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(0, 0, 161, 93))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(0, 0, 161, 111))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -89,21 +78,36 @@ class Ui_MainWindow(object):
         self.sessionLabel.setObjectName("sessionLabel")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.sessionLabel)
         self.sessionTimeEdit = QtWidgets.QTimeEdit(self.formLayoutWidget)
+        self.sessionTimeEdit.setEnabled(False)
         self.sessionTimeEdit.setObjectName("sessionTimeEdit")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.sessionTimeEdit)
         self.workTimeLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.workTimeLabel.setObjectName("workTimeLabel")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.workTimeLabel)
         self.worktimeTimeEdit = QtWidgets.QTimeEdit(self.formLayoutWidget)
-        self.worktimeTimeEdit.setCurrentSection(QtWidgets.QDateTimeEdit.MinuteSection)
+        self.worktimeTimeEdit.setEnabled(False)
+        self.worktimeTimeEdit.setCurrentSection(QtWidgets.QDateTimeEdit.HourSection)
         self.worktimeTimeEdit.setObjectName("worktimeTimeEdit")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.worktimeTimeEdit)
         self.timeoutLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.timeoutLabel.setObjectName("timeoutLabel")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.timeoutLabel)
         self.timeoutTimeEdit = QtWidgets.QTimeEdit(self.formLayoutWidget)
+        self.timeoutTimeEdit.setEnabled(False)
         self.timeoutTimeEdit.setObjectName("timeoutTimeEdit")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.timeoutTimeEdit)
+        self.editButton = QtWidgets.QPushButton(self.formLayoutWidget)
+        self.editButton.setObjectName("editButton")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.editButton)
+        self.applyButton = QtWidgets.QPushButton(self.formLayoutWidget)
+        self.applyButton.setEnabled(False)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.applyButton.sizePolicy().hasHeightForWidth())
+        self.applyButton.setSizePolicy(sizePolicy)
+        self.applyButton.setObjectName("applyButton")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.applyButton)
         self.tabsMain.addTab(self.settings, "")
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -116,18 +120,18 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Tomatoe"))
         self.btnStart.setText(_translate("MainWindow", "Start"))
         self.btnStop.setText(_translate("MainWindow", "Stop"))
-        #self.lbTimerTimeout.setText(_translate("MainWindow", "09:00:00"))
-        #self.lbTimerSession.setText(_translate("MainWindow", "09:00:00"))
+        self.lbTimerTimeout.setText(_translate("MainWindow", "09:00:00"))
+        self.lbTimerSession.setText(_translate("MainWindow", "09:00:00"))
         self.label_2.setText(_translate("MainWindow", "Timeout"))
         self.label.setText(_translate("MainWindow", "Session"))
         self.tabsMain.setTabText(self.tabsMain.indexOf(self.main), _translate("MainWindow", "Main"))
-        self.btnSaveProfile.setText(_translate("MainWindow", "Apply"))
         self.sessionLabel.setText(_translate("MainWindow", "Session"))
         self.sessionTimeEdit.setDisplayFormat(_translate("MainWindow", "hh:mm:ss"))
         self.workTimeLabel.setText(_translate("MainWindow", "Worktime"))
         self.worktimeTimeEdit.setDisplayFormat(_translate("MainWindow", "hh:mm:ss"))
         self.timeoutLabel.setText(_translate("MainWindow", "Timeout"))
         self.timeoutTimeEdit.setDisplayFormat(_translate("MainWindow", "hh:mm:ss"))
+        self.editButton.setText(_translate("MainWindow", "Edit"))
+        self.applyButton.setText(_translate("MainWindow", "Apply"))
         self.tabsMain.setTabText(self.tabsMain.indexOf(self.settings), _translate("MainWindow", "Settings"))
-
 
