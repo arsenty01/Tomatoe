@@ -5,11 +5,6 @@
 venv/*
 build/*
 dist/*
-*.pyc
-*.spec
+__pycache__/*
 *.json
-*.dll
-*.toc
-*.pkg
-*.exe
-*.txt
+*.spec
