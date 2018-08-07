@@ -167,20 +167,23 @@ font: 13px bold;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="settings">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <attribute name="title">
       <string>Settings</string>
      </attribute>
      <widget class="QPushButton" name="btnSaveProfile">
       <property name="geometry">
        <rect>
-        <x>128</x>
+        <x>102</x>
         <y>80</y>
-        <width>34</width>
+        <width>60</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Ok</string>
+       <string>Apply</string>
       </property>
      </widget>
      <widget class="QWidget" name="formLayoutWidget">
@@ -189,51 +192,56 @@ font: 13px bold;</string>
         <x>0</x>
         <y>0</y>
         <width>161</width>
-        <height>81</height>
+        <height>93</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
-        <widget class="QLabel" name="lbProfileName">
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="leProfileName"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lbSessionDuration">
+        <widget class="QLabel" name="sessionLabel">
          <property name="text">
           <string>Session</string>
          </property>
         </widget>
        </item>
+       <item row="0" column="1">
+        <widget class="QTimeEdit" name="sessionTimeEdit">
+         <property name="displayFormat">
+          <string>hh:mm:ss</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="workTimeLabel">
+         <property name="text">
+          <string>Worktime</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1">
-        <widget class="QTimeEdit" name="teSessionDuration"/>
+        <widget class="QTimeEdit" name="worktimeTimeEdit">
+         <property name="currentSection">
+          <enum>QDateTimeEdit::MinuteSection</enum>
+         </property>
+         <property name="displayFormat">
+          <string>hh:mm:ss</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="lbTimeout">
+        <widget class="QLabel" name="timeoutLabel">
          <property name="text">
           <string>Timeout</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QTimeEdit" name="teTimeout"/>
+        <widget class="QTimeEdit" name="timeoutTimeEdit">
+         <property name="displayFormat">
+          <string>hh:mm:ss</string>
+         </property>
+        </widget>
        </item>
       </layout>
-     </widget>
-     <widget class="QComboBox" name="cbSavedProfiles">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>81</y>
-        <width>121</width>
-        <height>25</height>
-       </rect>
-      </property>
      </widget>
     </widget>
    </widget>
