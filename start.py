@@ -119,6 +119,7 @@ class Application(QtWidgets.QMainWindow):
 
     def start_session(self):
         global saveTimer
+        self.ui.editButton.setEnabled(False)
         self.session_flag = True
         current_profile = 'Default'
         zero_point = QtCore.QTime.fromString('00:00:00', 'hh:mm:ss')
@@ -162,6 +163,7 @@ class Application(QtWidgets.QMainWindow):
             self.ui.lbTimerSession.setText(session_counter.toString())
         self.ui.lbTimerSession.setText(self.profiles[current_profile]['duration'])
         self.ui.lbTimerSession.setStyleSheet('font: bold 20px;color: black;')
+        self.ui.editButton.setEnabled(True)
         self.ui.btnStart.setEnabled(True)
         self.ui.btnStop.setEnabled(False)
 
