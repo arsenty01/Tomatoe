@@ -13,32 +13,33 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowIcon(QtGui.QIcon('/tom.png'))
         # buttons
         self.ui.btnStart.clicked.connect(self.dispatcher)
         self.ui.btnStop.clicked.connect(self.stop_everything)
         self.ui.editButton.clicked.connect(self.edit_settings)
         self.ui.applyButton.clicked.connect(self.apply_settings)
         # settings
-        with open('profiles.json', 'r') as profiles:
-            j_profiles = json.loads(profiles.read())
-            if j_profiles:
-                self.settings = j_profiles
-            else:
+        with open('profiles.json', 'w') as profiles:
+            try:
+                self.settings = json.loads(profiles.read())
+            except IOError:
                 self.settings = {"Session": "09:00:00", "Work": "00:01:00", "Rest": "00:15:00"}
+                json.dump(self.settings, profiles)
         self.time_format = "%H:%M:%S"
         self.settings_refresh()
         # children
-        self.rest_window = RestWindow(rest_seconds=self.rest_delta.seconds)
+        self.rest_window = RestWindow(self.rest_delta.seconds)
         self.rest_window.rest_window_closed.connect(self.work)
         self.work_thread = WorkThread(self.work_delta.seconds)
         self.work_thread.update_timers_main.connect(self.work_timer)
         self.work_thread.done.connect(self.show_rest_window)
-        self.session_thread = SessionThread()
+        self.session_thread = SessionThread(self.session_delta.seconds)
         self.session_thread.timer.connect(self.session_timer)
 
     def dispatcher(self):
         """ dispatcher of threads and windows """
-        print('dispatcher started')
         self.session_thread.start()
         self.work_thread.start()
         self.ui.btnStart.setEnabled(False)
@@ -46,7 +47,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.tabsMain.setTabEnabled(1, False)
 
     def work(self):
-        print('work started')
         self.work_thread.start()
 
     def show_rest_window(self, result):
@@ -124,6 +124,7 @@ class RestWindow(QtWidgets.QDialog):
         self.ui = Ui_timeout_window()
         self.ui.setupUi(self)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowIcon(QtGui.QIcon('/tom.png'))
         self.rest_seconds = rest_seconds
         self.time_format = "%H:%M:%S"
         # children
@@ -163,7 +164,6 @@ class WorkThread(QtCore.QThread):
 
     def run(self):
         """ main thread function """
-        print('work thread started')
         for i in range(self.work_seconds):
             self.update_timers_main.emit(i)
             time.sleep(1)
@@ -184,7 +184,6 @@ class RestThread(QtCore.QThread):
 
     def run(self):
         """ main thread function """
-        print('rest thread started')
         for i in range(self.rest_seconds):
             self.update_timer.emit(i)
             time.sleep(1)
@@ -197,11 +196,12 @@ class SessionThread(QtCore.QThread):
 
     timer = QtCore.pyqtSignal(int)
 
-    def __init__(self):
+    def __init__(self, session_seconds):
         super().__init__()
+        self.seconds = session_seconds
 
     def run(self):
-        for i in range(86400):
+        for i in range(self.seconds):
             self.timer.emit(i)
             time.sleep(1)
 
@@ -209,7 +209,6 @@ class SessionThread(QtCore.QThread):
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     application = MainWindow()
-    application.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
     application.show()
 
     sys.exit(app.exec())
