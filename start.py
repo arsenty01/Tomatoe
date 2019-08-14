@@ -40,6 +40,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def dispatcher(self):
         """ dispatcher of threads and windows """
+
         self.session_thread.start()
         self.work_thread.start()
         self.ui.btnStart.setEnabled(False)
@@ -51,21 +52,25 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_rest_window(self, result):
         """ show rest window """
+
         if result:
             self.rest_window.exec_()
 
     def work_timer(self, timer):
         """ update work timer"""
+
         string = time.strftime(self.time_format, time.gmtime(timer))
         self.ui.lbTimerTimeout.setText(string)
 
     def session_timer(self, timer):
         """ update main timer"""
+
         string = time.strftime(self.time_format, time.gmtime(timer))
         self.ui.lbTimerSession.setText(string)
 
     def stop_everything(self):
         """ closes all threads and stuff """
+
         self.work_thread.terminate()
         self.session_thread.terminate()
         self.ui.btnStop.setEnabled(False)
@@ -74,6 +79,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def edit_settings(self):
         """ enable settings edit """
+
         self.ui.editButton.setEnabled(False)
         self.ui.applyButton.setEnabled(True)
         self.ui.timeoutTimeEdit.setEnabled(True)
@@ -82,6 +88,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def apply_settings(self):
         """ apply and save settings """
+
         settings_dict = {
             "Session": self.ui.sessionTimeEdit.time().toString("hh:mm:ss"),
             "Work": self.ui.worktimeTimeEdit.time().toString("hh:mm:ss"),
@@ -114,9 +121,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.rest_delta = self.rest_period - self.zero_point
 
 
-
 class RestWindow(QtWidgets.QDialog):
     """ rest window """
+
     rest_window_closed = QtCore.pyqtSignal(bool)
 
     def __init__(self, rest_seconds, parent=None):
@@ -132,21 +139,26 @@ class RestWindow(QtWidgets.QDialog):
         self.rest_session_thread.update_timer.connect(self.update_timer)
 
     def showEvent(self, a0: QtGui.QShowEvent):
+        """ show """
+
         self.rest_session_thread.start()
         self.rest_session_thread.done.connect(self.close_window)
 
     def update_timer(self, timer):
         """ update timer of rest window """
+
         string = time.strftime(self.time_format, time.gmtime(timer))
         self.ui.ldTimeoutTimer.setText(string)
 
     def close_window(self):
         """ close """
+
         self.rest_session_thread.terminate()
         self.close()
 
     def closeEvent(self, a0: QtGui.QCloseEvent):
         """ event after closing of window """
+
         self.rest_session_thread.terminate()
         self.rest_window_closed.emit(True)
 
@@ -164,6 +176,7 @@ class WorkThread(QtCore.QThread):
 
     def run(self):
         """ main thread function """
+
         for i in range(self.work_seconds):
             self.update_timers_main.emit(i)
             time.sleep(1)
@@ -184,6 +197,7 @@ class RestThread(QtCore.QThread):
 
     def run(self):
         """ main thread function """
+
         for i in range(self.rest_seconds):
             self.update_timer.emit(i)
             time.sleep(1)
